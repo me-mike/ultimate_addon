@@ -1,3 +1,23 @@
+# useInternalEmulator.sh
+
+I wrote a Linux script to take all of the UCEs in the current folder, extract them, delete the emulator from the emu folder, modify the exec.sh script to change the path to the emulator from the UCE's copy to the internal Legend's Arcade emulator, and then repackage the UCE with a (BIE) in the name, standing for Built In Emulator. I've run this against games using mame2003_plus_libretro.so, and it's greatly reduced the file since since it doesn't need the emulator built into the package.
+
+The script assumes build_sq_cartridge_pack.sh is in the same folder as this script.  Customizations were made on this fork for the scripts to work together.
+
+Make sure useInternalEmulator.sh and build_sq_cartridge_pack.sh have executable access, run 'chmod 755 *.sh' in that folder.
+
+Also ensure all of the script files are in Unix format: 'dos2unix *.sh'
+
+The script requires ffmpeg to reduce boxart images to save space, run: 'sudo apt install ffmpeg' if you don't already have it installed.
+
+To execute the script, simply run it like this, and it will parse through all UCE files in the folder, extract them, see if it can modify the emulator, shrink box art images, and build a new UCE:
+./useInternalEmulator.sh
+
+Updated UCEs with (BIE) in the name will be in the current folder.
+Processed UCEs will be moved to Processed. You may choose to delete these if you're happy with the (BIE) versions, but keep them to be safe unless you need the space.
+UCEs that aren't converted because they use custom emulators go into a CustomCore folder.
+
+
 # Community Add-on 
 
 ## (Last verified on firmware version 4.6.0)
@@ -135,7 +155,6 @@ Use the following steps if you'd like to automate the build process and build ma
 Copy the output Warpspeed.UCE file from the previous section into the root of the USB drive, then insert the drive into either USB slots on the console's control-top. 
 
 Navigate to the BOYG page and the system should automatically load the game(s) if the image is valid.
-
 
 ## FAQs
 
