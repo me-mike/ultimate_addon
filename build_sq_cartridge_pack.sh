@@ -1,5 +1,9 @@
 #!/bin/bash
- 
+
+#
+# v001 - Initial fork.  Removing sudo command for chmod, and putting quotes around "$cart_file" to handle spaces - me-mike
+#
+
 #cart_file=./byog_cartridge_shfs.img
 cart_file=$2
 cart_tmp_file=./byog_cartridge_shfs_temp.img
@@ -18,7 +22,7 @@ if [ -e "$cart_save_file" ]; then
 fi
  
 #with gzip, block size set as 256K 
-sudo chmod 755 $1/exec.sh
+chmod 755 $1/exec.sh
 mksquashfs $1 $cart_tmp_file -comp gzip -b 262144 -root-owned -nopad
  
 SQIMGFILESIZE=$(stat -c%s "$cart_tmp_file")
@@ -65,7 +69,7 @@ echo $md5 | xxd -r -p > $my_md5string_hex_file
 dd if=$my_md5string_hex_file of=$cart_tmp_file ibs=16 count=1 obs=16 oflag=append conv=notrunc
  
 #bind files together
-cat $cart_tmp_file $cart_save_file > $cart_file
+cat $cart_tmp_file $cart_save_file > "$cart_file"
  
 if [ -e "$my_md5string_hex_file" ]; then
     rm -f $my_md5string_hex_file
