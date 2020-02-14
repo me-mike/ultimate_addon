@@ -1,6 +1,6 @@
 # Community Add-on 
 
-## (Last verified on firmware version 3.0.19)
+## (Last verified on firmware version 4.6.0)
 
 This is an unofficial guide to packing your own apps into an  "Add-on Image" for use on AtGames' Legend Ultimate home arcade. 
 
@@ -15,7 +15,7 @@ The following sections will prepare your home arcade, as well as the files to be
 ### Prerequisites
 Make sure you have the following ready:
 
-- Arcade console running firmware **3.0.19 or later** 
+- Arcade console running firmware **3.0.19 or later - last tested with 4.6.0** 
   - Please follow the official OTA upgrade procedure from the user manual to update your firmware to a compatible version
 - A USB drive with enough storage to hold your files
   - Please make sure the drive is formatted in FAT(FAT32, exFAT) file system
@@ -47,8 +47,8 @@ Please adhere the following file structure when preparing your add-on image
     |   +---------+      this example uses "Warpspeed.bin"
     |                    
     |   +---------+ 
-    +-- | boxart  |  <-- subdirectory for boxart, "boxart.png" is the default name.
-    |   +---------+
+    +-- | boxart  |  <-- subdirectory for boxart, "boxart.png" is the default box art image name (222x306).
+    |   +---------+      addon.z.png is the default bezel art image name (1280x720).
     |
     |   +---------+ 
     +-- |  save   |  <-- subdirectory for gamesave files
@@ -134,11 +134,8 @@ Use the following steps if you'd like to automate the build process and build ma
 
 Copy the output Warpspeed.UCE file from the previous section into the root of the USB drive, then insert the drive into either USB slots on the console's control-top. 
 
-Navigate to the GAME page and the system should automatically load the game(s) if the image is valid, and a new filter named "Add-on" will appear on the left side of the [Games] menu.
+Navigate to the BOYG page and the system should automatically load the game(s) if the image is valid.
 
-![Add-on filter](arcade_filter.jpg)
-
-Select the game and enjoy!
 
 ## FAQs
 
@@ -156,6 +153,3 @@ Q: Some UCE games crashes my arcade after upgrading to firmware 3.0.11, they use
 
 Q: I am unable to enter my add-on game after new firmware update, it just takes me back to the menu UI.
 > Some mame2003+ ROMs require an empty "hiscore.dat" file under /roms directory for compatibility issues. Please repack your game with the file using Linux script, or repack using the updated Windows tool.
-
-Q: I'd like to develop my own games and try them out on the arcade, where do I start?
-> I'm looking into this now, check back in a bit and I'll update this repo with what I can find.
