@@ -17,6 +17,9 @@ Updated UCEs with (BIE) in the name will be in the current folder.
 Processed UCEs will be moved to Processed. You may choose to delete these if you're happy with the (BIE) versions, but keep them to be safe unless you need the space.
 UCEs that aren't converted because they use custom emulators go into a CustomCore folder.
 
+## To Do
+- Currently only process UCEs that utilize an emulator built onto the system.  Will modify script to reduce image size of all UCE files, regardless of the emulators they use.
+- Need to customize script so it can run successfully on Windows with CygWin so we don't exclude Windows users.  Trying to determine easiest way to get ffmpeg working with CygWin.
 
 # Community Add-on 
 
