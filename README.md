@@ -18,8 +18,7 @@ Processed UCEs will be moved to Processed. You may choose to delete these if you
 UCEs that aren't converted because they use custom emulators go into a CustomCore folder.
 
 ## To Do
-- Currently only process UCEs that utilize an emulator built onto the system.  Will modify script to reduce image size of all UCE files, regardless of the emulators they use.
-- Need to customize script so it can run successfully on Windows with CygWin so we don't exclude Windows users.  Trying to determine easiest way to get ffmpeg working with CygWin.
+- useInternalEmulator.sh script now runs on Windows with CygWin.  Need to document instructions for setting up your environment.  Coming soon.
 
 # Community Add-on 
 
