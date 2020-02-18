@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # v001 - 02/18/2020 - Initial build (code borrowed from useInternalEmulator.sh)
+# v002 - 02/18/2020 - Added last modified date of the UCE
 
 #
 # Script is designed to parse through a folder of UCEs, extract them one by one, determine what emulator they have,
@@ -16,7 +17,7 @@
 #
 
 #Create our UCE info file, and put a header in it
-	echo "UCEName,Emulator,BoxArt,BoxArtSize,Bezel,BezelSize">UCEInfo.csv
+	echo "UCEName,Emulator,BoxArt,BoxArtSize,Bezel,BezelSize,LastModified">UCEInfo.csv
 
 #Clear our log file from previous output
 if [ -e log.txt ]; then
@@ -95,10 +96,13 @@ do
 		bezelDimensions=","
 	fi
 
+	#Get the last modified time of the UCE file
+	lastModUCE=$(date -r "$filename" "+%Y/%m/%d %H:%M:%S")
+
 	#Echo and log the UCE info to UCEInfo.csv: UCE,emulator,boxart,size,bezel,size
 	#boxartDimensions and bezelDimensions already have a comma a the end, so don't need to add
-	echo "$filename,$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions"
-	echo "$filename,$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions">>UCEInfo.csv
+	echo "$filename,$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE"
+	echo "$filename,$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE">>UCEInfo.csv
 
 	#Remove the extracted folder
 	rm -rf squashfs-root/
