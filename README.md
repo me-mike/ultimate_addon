@@ -94,7 +94,9 @@ These files will be copied to /usr/local/bin.
 
 # listUCEInfo.sh
 
-listUCEInfo.sh is based off of the code for useInternalEmulator.sh.  It is meant to be run in a Linux environment, or in Windows using CygWin.  See details above for getting that configured.  Run this script in a folder full of UCEs.  It will extract them one by one, pull the UCE name, determine the emulator built into the package, or if there is no emulator built in, it looks at the exec.sh script to determine what ALU core you're using.  It then determines if you have boxart and the dimensions, then looks for the bezel and gets the dimensions.  It outputs all of this information to the screen, and outputs to a UCEInfo.csv file.  It then deletes the temporary extract, and moves to the next UCE in the folder.  All of this work takes less than 1 second per UCE.
+listUCEInfo.sh is based off of the code for useInternalEmulator.sh.  It is meant to be run in a Linux environment, or in Windows using CygWin.  See details above for getting that configured.  Run this script in a folder and it will recursively look for UCE files.  It will extract them one by one, pull the UCE name, determine the emulator built into the package, or if there is no emulator built in, it looks at the exec.sh script to determine what ALU core you're using.  It then determines if you have boxart and the dimensions, then looks for the bezel and gets the dimensions.  It also checks MAME 2003 and 2010 ROM files to see if they have samples, CHDs, or nvram files included in them.  It outputs all of this information to the screen, and outputs to a UCEInfo.csv file.  It then deletes the temporary extract, and moves to the next UCE in the folder.  All of this work takes less than 1 second per UCE.
+
+Requires unsquashfs and zipinfo to run.
 
 On Linux, make sure listUCEInfo.sh has executable access, run 'chmod 755 *.sh' in that folder.
 
