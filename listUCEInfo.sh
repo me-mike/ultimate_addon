@@ -2,9 +2,10 @@
 #
 # v001 - 02/18/2020 - Initial build (code borrowed from useInternalEmulator.sh)
 # v002 - 02/18/2020 - Added last modified date of the UCE
+# v003 - 03/21/2020 - Recursive searches into folders for UCEs
 
 #
-# Script is designed to parse through a folder of UCEs, extract them one by one, determine what emulator they have,
+# Script is designed to recursively parse through a folder of UCEs, extract them one by one, determine what emulator they have,
 #   if they have boxart and size, if they have a bezel and size.  Output goes to UCEInfo.csv so it can be opened with Excel.
 #
 
@@ -13,11 +14,13 @@
 
 #
 # To Do:
-# - All caught up
+# - Look for sample, CHD, and nvram info in files
+# - Add help text to command line
+# - Look at generating functions to make code reusable
 #
 
 #Create our UCE info file, and put a header in it
-	echo "UCEName,Emulator,BoxArt,BoxArtSize,Bezel,BezelSize,LastModified">UCEInfo.csv
+echo "UCEName,Emulator,BoxArt,BoxArtSize,Bezel,BezelSize,LastModified">UCEInfo.csv
 
 #Clear our log file from previous output
 if [ -e log.txt ]; then
@@ -26,9 +29,16 @@ if [ -e log.txt ]; then
 fi
 
 #Only run if there are UCE files in the current folder
-if ls ./*.UCE &>/dev/null
-then
-for file in ./*.UCE
+#if ls ./*.UCE &>/dev/null
+#then
+#for file in ./*.UCE
+
+#IFS is the internal field separator.  To handle folders with spaces in the name, let's backup
+# the existing IFS value, and set it only to spaces and new lines.
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+
+for file in $(find . -type f -name "*.UCE")
 do
 	#Echo file to screen and log
 	echo "Working on $file"
@@ -47,7 +57,7 @@ do
 		for em in "./squashfs-root/emu/*.so"
 		do
 		#Get just the emulator name, excluding the folder structure
-				emulatorName=$(basename $em)
+		emulatorName=$(basename $em)
 		done
 	else
 		#Else, there is no internal emulator, so we're assuming there is one in exec.sh
@@ -110,6 +120,9 @@ do
 	echo "=========="
 done
 # Else if there are no UCEs in the current folder
-else
-	echo "There must be UCE files in the current folder to process."
-fi
+#else
+#	echo "There must be UCE files in the current folder to process."
+#fi
+
+#Restore the previous IFS value
+IFS=$SAVEIFS
