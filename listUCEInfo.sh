@@ -3,6 +3,7 @@
 # v001 - 02/18/2020 - Initial build (code borrowed from useInternalEmulator.sh)
 # v002 - 02/18/2020 - Added last modified date of the UCE
 # v003 - 03/21/2020 - Recursive searches into folders for UCEs
+# v004 - 03/21/2020 - Small fix to double quote the file names.  A few UCEs may have commas in the name.
 
 #
 # Script is designed to recursively parse through a folder of UCEs, extract them one by one, determine what emulator they have,
@@ -112,7 +113,7 @@ do
 	#Echo and log the UCE info to UCEInfo.csv: UCE,emulator,boxart,size,bezel,size
 	#boxartDimensions and bezelDimensions already have a comma a the end, so don't need to add
 	echo "$filename,$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE"
-	echo "$filename,$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE">>UCEInfo.csv
+	echo "\"$filename\",$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE">>UCEInfo.csv
 
 	#Remove the extracted folder
 	rm -rf squashfs-root/
