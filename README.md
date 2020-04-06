@@ -18,7 +18,8 @@ Processed UCEs will be moved to Processed. You may choose to delete these if you
 UCEs that aren't converted because they use custom emulators go into a CustomCore folder.
 
 ## To Do
--- All caught up.  I'm willing to take suggestions.
+-- Make script recursive, updating items in subfolders
+-- Resize boxart images and rebuild if necessary, even if we don't swap the emulator
 
 # Using useInternalEmulator.sh on Windows
 
@@ -110,9 +111,22 @@ Output: UCEInfo.csv
 ## To Do
 -- All caught up.  I'm willing to take suggestions.
 
+# resizeUCEBoxartImages.sh
+
+resizeUCEBoxartImages.sh is based off of the code for useInternalEmulator.sh.  It is meant to be run in a Linux environment, or in Windows using CygWin.  See details above for getting that configured.  Run this script in a folder and it will recursively look for UCE files.  It will extract them one by one, check the boxart image size, and resize it if necessary.  If it resizes an image, it will move the original UCE into a folder structure in /Original similar to where it found the original UCE file and rebuild the new UCE in the original location.
+
+Ensure you have unsquashfs, mksquashfs, and ffmpeg in your path.  Make sure build_sq_cartridge_pack.sh is in same folder as this script.
+
+On Linux, make sure resizeUCEBoxartImages.sh has executable access, run 'chmod 755 *.sh' in that folder.
+
+Also ensure all of the script files are in Unix format: 'dos2unix *.sh'
+
+To execute the script, simply run it like this:
+./resizeUCEBoxartImages.sh
+
 # Community Add-on 
 
-## (Last verified on firmware version 4.6.0)
+## (Last verified on firmware version 4.13.0)
 
 This is an unofficial guide to packing your own apps into an  "Add-on Image" for use on AtGames' Legend Ultimate home arcade. 
 
@@ -127,7 +141,7 @@ The following sections will prepare your home arcade, as well as the files to be
 ### Prerequisites
 Make sure you have the following ready:
 
-- Arcade console running firmware **3.0.19 or later - last tested with 4.6.0** 
+- Arcade console running firmware **3.0.19 or later - last tested with 4.13.0** 
   - Please follow the official OTA upgrade procedure from the user manual to update your firmware to a compatible version
 - A USB drive with enough storage to hold your files
   - Please make sure the drive is formatted in FAT(FAT32, exFAT) file system
