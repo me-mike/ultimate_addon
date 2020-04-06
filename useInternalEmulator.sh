@@ -11,14 +11,17 @@
 #					- Check for log.txt before trying to remove it
 #					- Added some usage info
 #					- Always check to see if the boxart.png is large, and resize it
+# v007 - 04/06/2020 - Changing the internal name for the SNES emulator from snes_mtfaust-arm-cortex-a53.so to snes_mtfaust-arm64-cortex-a53.so
+#					- Minor comment tweaks
+#					- Move folder creation outside of the for loop, since it only needs to make them once
 #
 # Script requires ffmpeg
 # Linux users run: 'sudo apt install ffmpeg' if you don't already have it installed
 # For Windows users, download from https://ffmpeg.zeranoe.com/builds/
 #      Open zip, copy the ffmpeg.exe from the bin folder to your CygWin sbin folder (D:\cygwin64\usr\sbin)
-#      Or copy files from CygWin_sbin to your /usr/sbin folder
+#      Or copy files from CygWin_sbin to your /usr/sbin folder (or /usr/bin if you don't have sbin in your path)
 
-# Usage: - Ensure you have unsquashfs, mksquashfs, and ffmpeg
+# Usage: - Ensure you have unsquashfs, mksquashfs, and ffmpeg are in your path - make sure build_sq_cartridge_pack.sh is in same folder as this script.
 #    ./useInternalEmulator.sh
 # 
 # Script will process through all UCE files in the current folder.  It will extract the UCE with unsquashfs to squashfs-root.
@@ -27,10 +30,28 @@
 #     and rebuild the package.  The original file will be moved to /Processed.  New file will remain in current folder with (BIE) in name.
 #     If it's not an internal emulator, move the UCE to the CustomCore folder.
 
+# ToDo:
+# 	- Make recursive
+#	- Resize boxart images and rebuild if necessary, even if we don't swap the emulator
+
 #Clear our log file from previous output
 if [ -e log.txt ]; then
 	echo 'Removing old log.txt'
 	rm log.txt
+fi
+
+#Verify if the Processed folder exists, if not make it
+processedFolder=./Processed
+if [ ! -d "$processedFolder" ]; then
+	echo "Making: $processedFolder"
+	mkdir $processedFolder
+fi
+
+#Verify if the CustomCore folder exists, if not make it
+customCoreFolder=./CustomCore
+if [ ! -d "$customCoreFolder" ]; then
+		echo "Making: $customCoreFolder"
+		mkdir $customCoreFolder
 fi
 
 #Only run if there are UCE files in the current folder
@@ -50,20 +71,6 @@ do
 	#Extract out the UCE file to ./squashfs-root
 	echo "Extracting $filename"
 	unsquashfs "$filename">>log.txt
-
-	#Verify if the Processed folder exists, if not make it
-	processedFolder=./Processed
-	if [ ! -d "$processedFolder" ]; then
-		echo "Making: $processedFolder"
-		mkdir $processedFolder
-	fi
-
-	#Verify if the CustomCore folder exists, if not make it
-	customCoreFolder=./CustomCore
-	if [ ! -d "$customCoreFolder" ]; then
-			echo "Making: $customCoreFolder"
-			mkdir $customCoreFolder
-	fi
 
 	#Get the emulator from the emu folder
 	for em in "./squashfs-root/emu/*.so"
@@ -98,7 +105,7 @@ do
 	#Look at the value of the emulator
         case "$emulatorName" in
 			#If it's in our list of internal emulators
-			mame2003_plus_libretro.so | mame2010_libretro.so | genesis_plus_gx_libretro.so | quicknes_libretro.so | snes_mtfaust-arm-cortex-a53.so | stella_libretro.so )
+			mame2003_plus_libretro.so | mame2010_libretro.so | genesis_plus_gx_libretro.so | quicknes_libretro.so | snes_mtfaust-arm64-cortex-a53.so | stella_libretro.so )
             echo "emulator $emulatorName in list" 
 			#Move the original UCE file to ./Processed as a backup
 			echo "Moving $filename to $processedFolder" 
