@@ -41,9 +41,9 @@ Optional Packages if you don't want to use my EXE files for unsquashfs.exe or mk
    
 Click Next to complete the CygWin package updates.  Accept any additional package requirements from above.
 
-3 - Download my CygWin_sbin.zip file (https://github.com/me-mike/ultimate_addon/blob/master/CygWin_sbin/CygWin_sbin.zip) from GitHub, and extract it to your CygWin /usr/sbin folder.  For me this is D:\cygwin64\usr\sbin (don't overwrite any DLLs already present).  Note: If you won't want to trust the EXEs, I'll include instructions below for building unsquashfs.exe and mksquashfs.exe, which will require you to have the Optional Packages installed above.
+3 - Download my CygWin_sbin.zip file (https://github.com/me-mike/ultimate_addon/blob/master/CygWin_sbin/CygWin_sbin.zip) from GitHub, and extract it to your CygWin /usr/sbin folder.  For me this is D:\cygwin64\usr\sbin (don't overwrite any DLLs already present).  Note: If you won't want to trust the EXEs, I'll include instructions below for building unsquashfs.exe and mksquashfs.exe, which will require you to have the Optional Packages installed above.  ** NOTE: Some users have had issues with the executables in /usr/sbin.  If they don't work for you, try /usr/local/bin **
 
-We also need ffmpeg for Windows.  You could go to https://ffmpeg.org/download.html, download the source code, and try to compile it, or trust the people they trust, and go to https://ffmpeg.zeranoe.com/builds/, click the Download Build button, and then extract ffmpeg.exe to your CygWin /usr/sbin folder.  For me this is D:\cygwin64\usr\sbin.
+We also need ffmpeg for Windows.  You could go to https://ffmpeg.org/download.html, download the source code, and try to compile it, or trust the people they trust, and go to https://ffmpeg.zeranoe.com/builds/, click the Download Build button, and then extract ffmpeg.exe to your CygWin /usr/sbin folder.  For me this is D:\cygwin64\usr\sbin.  ** NOTE: Some users have had issues with the executables in /usr/sbin.  If they don't work for you, try /usr/local/bin **
 
 4 - Modify your CygWin /etc/profile (D:\cygwin64\etc\profile) file to add /usr/sbin to your path, so it will pick up the executables we added.  On lines 45 and 47 we'll be adding :/usr/sbin to our PATH.  It will look like this:
 	PATH="/usr/local/bin:/usr/bin:/usr/sbin${PATH:+:${PATH}}"
