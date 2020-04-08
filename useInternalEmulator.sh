@@ -19,7 +19,8 @@
 # Linux users run: 'sudo apt install ffmpeg' if you don't already have it installed
 # For Windows users, download from https://ffmpeg.zeranoe.com/builds/
 #      Open zip, copy the ffmpeg.exe from the bin folder to your CygWin sbin folder (D:\cygwin64\usr\sbin)
-#      Or copy files from CygWin_sbin to your /usr/sbin folder (or /usr/bin if you don't have sbin in your path)
+#      Or copy files from CygWin_sbin to your /usr/sbin folder
+#      ** NOTE: Some users have had issues with the executables in /usr/sbin.  If they don't work for you, try /usr/local/bin **
 
 # Usage: - Ensure you have unsquashfs, mksquashfs, and ffmpeg are in your path - make sure build_sq_cartridge_pack.sh is in same folder as this script.
 #    ./useInternalEmulator.sh
