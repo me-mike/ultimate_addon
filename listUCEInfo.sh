@@ -5,6 +5,7 @@
 # v003 - 03/21/2020 - Recursive searches into folders for UCEs
 # v004 - 03/21/2020 - Small fix to double quote the file names.  A few UCEs may have commas in the name.
 # v005 - 03/21/2020 - Look for samples, CHDs, or nvram -- Requires zipinfo utility
+# v006 - 04/10/2020 - Print the date/timestamp and size of the core so we can identify how old it might be
 
 #
 # Script is designed to recursively parse through a folder of UCEs, extract them one by one, determine what emulator they have,
@@ -21,7 +22,7 @@
 #
 
 #Create our UCE info file, and put a header in it
-echo "UCEName,Emulator,BoxArt,BoxArtSize,Bezel,BezelSize,LastModified,HasSamples,HasCHDs,HasNVRAM">UCEInfo.csv
+echo "UCEName,Emulator,EmulatorDate,EmulatorSize,BoxArt,BoxArtSize,Bezel,BezelSize,LastModified,HasSamples,HasCHDs,HasNVRAM">UCEInfo.csv
 
 #Clear our log file from previous output
 if [ -e log.txt ]; then
@@ -60,6 +61,12 @@ do
 			#Get just the emulator name, excluding the folder structure
 			emulatorName=$(basename $em)
 
+			#Get the date/timestamp of the emulator
+			emulatorDate=$(date -r $em "+%m-%d-%Y %H:%M:%S")
+
+			#Get the emulator size
+			emulatorSize=$(find $em -printf %s)
+
 			#If the emulator is MAME 2003 or 2010, let's look for samples, CHDs, or nvram files
 			if [[ $emulatorName == mame2003* ]] || [[ $emulatorName == mame2010* ]];
 			then
@@ -87,6 +94,9 @@ do
 		#The line looks like: /emulator/retroplayer /emulator/mame2003_plus_libretro.so "./roms/dkong.zip"
 		#Grep to find a line in the file with ".so", and then pull the second parameter from that line which should be the emulator
 		emulatorName=$(grep ".so" squashfs-root/exec.sh | awk '{print $2}')
+		#Set a dummy emulatorDate
+		emulatorDate="Internal"
+		emulatorSize="Internal"
 	fi
 
 	#file <imagename.png> outputs in a format like this:
@@ -134,8 +144,8 @@ do
 
 	#Echo and log the UCE info to UCEInfo.csv: UCE,emulator,boxart,size,bezel,size
 	#boxartDimensions and bezelDimensions already have a comma a the end, so don't need to add
-	echo "$filename,$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE,$hasSamples,$hasCHDs,$hasNvram"
-	echo "\"$filename\",$emulatorName,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE,$hasSamples,$hasCHDs,$hasNvram">>UCEInfo.csv
+	echo "$filename,$emulatorName,$emulatorDate,$emulatorSize,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE,$hasSamples,$hasCHDs,$hasNvram"
+	echo "\"$filename\",$emulatorName,$emulatorDate,$emulatorSize,$boxart,$boxartDimensions$bezelart,$bezelDimensions$lastModUCE,$hasSamples,$hasCHDs,$hasNvram">>UCEInfo.csv
 
 	#Remove the extracted folder
 	rm -rf squashfs-root/
