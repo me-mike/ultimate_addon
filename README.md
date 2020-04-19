@@ -124,6 +124,19 @@ Also ensure all of the script files are in Unix format: 'dos2unix *.sh'
 To execute the script, simply run it like this:
 ./resizeUCEBoxartImages.sh
 
+# removeUCEImages.sh
+
+removeUCEImages.sh is based off of the code for useInternalEmulator.sh.  It is meant to be run in a Linux environment, or in Windows using CygWin.  See details above for getting that configured.  Run this script in a folder and it will recursively look for UCE files.  It will extract them one by one, remove any boxart or bezel art, recreate 0k files for the boxart and title.png files since they need something there, and will rebuild the UCE, adding (noImage) to the name.  The file will be placed in a ./noImage folder with the same folder structure as the original UCE.
+
+Ensure you have unsquashfs, mksquashfs, touch, and sed in your path.  Make sure build_sq_cartridge_pack.sh is in same folder as this script.
+
+On Linux, make sure removeUCEImages.sh has executable access, run 'chmod 755 *.sh' in that folder.
+
+Also ensure all of the script files are in Unix format: 'dos2unix *.sh'
+
+To execute the script, simply run it like this:
+./removeUCEImages.sh
+
 # Community Add-on 
 
 ## (Last verified on firmware version 4.13.0)
