@@ -14,6 +14,7 @@
 # v007 - 04/06/2020 - Changing the internal name for the SNES emulator from snes_mtfaust-arm-cortex-a53.so to snes_mtfaust-arm64-cortex-a53.so
 #					- Minor comment tweaks
 #					- Move folder creation outside of the for loop, since it only needs to make them once
+# v008 - 04/20/2020 - Adding checks for required executables
 #
 # Script requires ffmpeg
 # Linux users run: 'sudo apt install ffmpeg' if you don't already have it installed
@@ -34,6 +35,44 @@
 # ToDo:
 # 	- Make recursive
 #	- Resize boxart images and rebuild if necessary, even if we don't swap the emulator
+
+#Verify if the build_sq_cartridge_pack.sh is in this folder
+if [ ! -f build_sq_cartridge_pack.sh ]; then
+	echo "Need to have build_sq_cartridge_pack.sh in this folder to run the script"
+	exit 1
+fi
+
+#Verify all of the executables we need are in our path.  Otherwise exit.
+if ! [ -x "$(command -v unsquashfs)" ]; then
+  echo 'Error: unsquashfs is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v mksquashfs)" ]; then
+  echo 'Error: mksquashfs is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v basename)" ]; then
+  echo 'Error: basename is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v file)" ]; then
+  echo 'Error: file is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v ln)" ]; then
+  echo 'Error: ln is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v ffmpeg)" ]; then
+  echo 'Error: ffmpeg is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v sed)" ]; then
+  echo 'Error: sed is not in path.' >&2
+  exit 1
+fi
+
+echo "All required commands in path"
 
 #Clear our log file from previous output
 if [ -e log.txt ]; then
