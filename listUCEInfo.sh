@@ -6,6 +6,7 @@
 # v004 - 03/21/2020 - Small fix to double quote the file names.  A few UCEs may have commas in the name.
 # v005 - 03/21/2020 - Look for samples, CHDs, or nvram -- Requires zipinfo utility
 # v006 - 04/10/2020 - Print the date/timestamp and size of the core so we can identify how old it might be
+# v007 - 04/20/2020 - Adding checks for required executables
 
 #
 # Script is designed to recursively parse through a folder of UCEs, extract them one by one, determine what emulator they have,
@@ -20,6 +21,34 @@
 # - Add help text to command line
 # - Look at generating functions to make code reusable
 #
+
+#Verify all of the executables we need are in our path.  Otherwise exit.
+if ! [ -x "$(command -v unsquashfs)" ]; then
+  echo 'Error: unsquashfs is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v zipinfo)" ]; then
+  echo 'Error: zipinfo is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v file)" ]; then
+  echo 'Error: file is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v grep)" ]; then
+  echo 'Error: grep is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v find)" ]; then
+  echo 'Error: find is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v basename)" ]; then
+  echo 'Error: basename is not in path.' >&2
+  exit 1
+fi
+
+echo "All required commands in path"
 
 #Create our UCE info file, and put a header in it
 echo "UCEName,Emulator,EmulatorDate,EmulatorSize,BoxArt,BoxArtSize,Bezel,BezelSize,LastModified,HasSamples,HasCHDs,HasNVRAM">UCEInfo.csv
