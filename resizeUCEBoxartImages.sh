@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # v001 - 04/06/2020 - Initial build
+# v002 - 04/20/2020 - Adding checks for required executables
 #
 # Script requires ffmpeg
 # Linux users run: 'sudo apt install ffmpeg' if you don't already have it installed
@@ -19,6 +20,32 @@
 
 # ToDo:
 #   - Maybe consider inserting a generic bezel if one isn't included?  Get feedback first.
+
+#Verify if the build_sq_cartridge_pack.sh is in this folder
+if [ ! -f build_sq_cartridge_pack.sh ]; then
+	echo "Need to have build_sq_cartridge_pack.sh in this folder to run the script"
+	exit 1
+fi
+
+#Verify all of the executables we need are in our path.  Otherwise exit.
+if ! [ -x "$(command -v unsquashfs)" ]; then
+  echo 'Error: unsquashfs is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v mksquashfs)" ]; then
+  echo 'Error: mksquashfs is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v ffmpeg)" ]; then
+  echo 'Error: ffmpeg is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v ln)" ]; then
+  echo 'Error: ln is not in path.' >&2
+  exit 1
+fi
+
+echo "All required commands in path"
 
 #Clear our log file from previous output
 if [ -e log.txt ]; then
