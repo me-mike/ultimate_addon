@@ -4,7 +4,7 @@
 # v002 - 02/18/2020 - Added last modified date of the UCE
 # v003 - 03/21/2020 - Recursive searches into folders for UCEs
 # v004 - 03/21/2020 - Small fix to double quote the file names.  A few UCEs may have commas in the name.
-# v005 - 03/21/2020 - Look for samples, CHDs, or nvram -- Requires zipinfo utility
+# v005 - 03/21/2020 - Look for samples, CHDs, or nvram -- Requires zipinfo utility, included in the "unzip" cygwin package
 # v006 - 04/10/2020 - Print the date/timestamp and size of the core so we can identify how old it might be
 # v007 - 04/20/2020 - Adding checks for required executables
 
@@ -13,7 +13,7 @@
 #   if they have boxart and size, if they have a bezel and size.  Output goes to UCEInfo.csv so it can be opened with Excel.
 #
 
-# Usage: - Ensure you have unsquashfs and zipinfo and that the file is in Unix format (dos2unix listUCEInfo.sh)
+# Usage: - Ensure you have unsquashfs and zipinfo (from cygwin unzip package) and that the file is in Unix format (dos2unix listUCEInfo.sh)
 #    ./listUCEInfo.sh
 
 #
