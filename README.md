@@ -41,11 +41,11 @@ Optional Packages if you don't want to use my EXE files for unsquashfs.exe or mk
    
 Click Next to complete the CygWin package updates.  Accept any additional package requirements from above.
 
-3 - Download my CygWin_sbin.zip file (https://github.com/me-mike/ultimate_addon/blob/master/CygWin_sbin/CygWin_sbin.zip) from GitHub, and extract it to your CygWin /usr/sbin folder.  For me this is D:\cygwin64\usr\sbin (don't overwrite any DLLs already present).  Note: If you won't want to trust the EXEs, I'll include instructions below for building unsquashfs.exe and mksquashfs.exe, which will require you to have the Optional Packages installed above.  ** NOTE: Some users have had issues with the executables in /usr/sbin.  If they don't work for you, try /usr/local/bin **
+3 - Download my CygWin_sbin.zip file (https://github.com/me-mike/ultimate_addon/blob/master/CygWin_sbin/CygWin_sbin.zip) from GitHub, and extract it to your CygWin /usr/local/bin folder.  For me this is D:\cygwin64\usr\local\bin (don't overwrite any DLLs already present).  Note: If you won't want to trust the EXEs, I'll include instructions below for building unsquashfs.exe and mksquashfs.exe, which will require you to have the Optional Packages installed above.  ** NOTE: Some users have had issues with the executables in /usr/sbin.  Use /usr/local/bin **
 
-We also need ffmpeg for Windows.  You could go to https://ffmpeg.org/download.html, download the source code, and try to compile it, or trust the people they trust, and go to https://ffmpeg.zeranoe.com/builds/, click the Download Build button, and then extract ffmpeg.exe to your CygWin /usr/sbin folder.  For me this is D:\cygwin64\usr\sbin.  ** NOTE: Some users have had issues with the executables in /usr/sbin.  If they don't work for you, try /usr/local/bin **
+We also need ffmpeg for Windows.  You could go to https://ffmpeg.org/download.html, download the source code, and try to compile it, or trust the people they trust, and go to https://ffmpeg.zeranoe.com/builds/, click the Download Build button, and then extract ffmpeg.exe to your CygWin /usr/local/bin folder.  For me this is D:\cygwin64\usr\local\bin.  ** NOTE: Some users have had issues with the executables in /usr/sbin.  Use /usr/local/bin **
 
-4 - Modify your CygWin /etc/profile (D:\cygwin64\etc\profile) file to add /usr/sbin to your path, so it will pick up the executables we added.  On lines 45 and 47 we'll be adding :/usr/sbin to our PATH.  It will look like this:
+4 - Modify your CygWin /etc/profile (D:\cygwin64\etc\profile) file to add /usr/local/bin to your path, so it will pick up the executables we added.  On lines 45 and 47 it will look like this:
 	PATH="/usr/local/bin:/usr/bin:/usr/sbin${PATH:+:${PATH}}"
     else
 	PATH="/usr/local/bin:/usr/bin:/usr/sbin"
@@ -97,7 +97,7 @@ These files will be copied to /usr/local/bin.
 
 listUCEInfo.sh is based off of the code for useInternalEmulator.sh.  It is meant to be run in a Linux environment, or in Windows using CygWin.  See details above for getting that configured.  Run this script in a folder and it will recursively look for UCE files.  It will extract them one by one, pull the UCE name, determine the emulator built into the package, or if there is no emulator built in, it looks at the exec.sh script to determine what ALU core you're using.  It then determines if you have boxart and the dimensions, then looks for the bezel and gets the dimensions.  It also checks MAME 2003 and 2010 ROM files to see if they have samples, CHDs, or nvram files included in them.  It outputs all of this information to the screen, and outputs to a UCEInfo.csv file.  It then deletes the temporary extract, and moves to the next UCE in the folder.  All of this work takes less than 1 second per UCE.
 
-Requires unsquashfs and zipinfo to run.
+Requires unsquashfs and zipinfo to run.  This comes from the "unzip" CygWin package.
 
 On Linux, make sure listUCEInfo.sh has executable access, run 'chmod 755 *.sh' in that folder.
 
