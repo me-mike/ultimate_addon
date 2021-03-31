@@ -7,6 +7,7 @@
 # v005 - 03/21/2020 - Look for samples, CHDs, or nvram -- Requires zipinfo utility, included in the "unzip" cygwin package
 # v006 - 04/10/2020 - Print the date/timestamp and size of the core so we can identify how old it might be
 # v007 - 04/20/2020 - Adding checks for required executables
+# v008 - 03/31/2021 - Updated to do a case insensitive search for *.UCE with iname instead of name
 
 #
 # Script is designed to recursively parse through a folder of UCEs, extract them one by one, determine what emulator they have,
@@ -64,7 +65,8 @@ fi
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 
-for file in $(find . -type f -name "*.UCE")
+#Updated to do a case insensitive search for *.UCE with iname instead of name
+for file in $(find . -type f -iname "*.UCE")
 do
 	#Echo file to screen and log
 	echo "Working on $file"
