@@ -28,16 +28,25 @@ The useInternalEmulator.sh and build_sq_cartridge_pack.sh are shell scripts mean
 1 - Download setup-x86_64.exe from CygWin (https://www.cygwin.com/setup-x86_64.exe), and install it on your Windows machine.  For reference, I installed it to D:\cygwin64, so any path I mention will reference that location.
 
 2 - Now that you have CygWin installed, we need to add additional packages to it.  Relaunch setup-x86_64.exe and click Next until you get to the Select Packages screen.  From here, we're going to search for and install the following packages (select View: Full, and search for these packages).  For each package, change Skip to the latest non-test version of each package below:
-	-xxd                Hexdump utility
-	-e2fsprogs          EXT 2, 3, 4 filesystem utilities
-	-dos2unix           Line break conversion - Allows us to convert files from Windows line endings to Unix line endings
+
+	xxd                Hexdump utility
+	
+	e2fsprogs          EXT 2, 3, 4 filesystem utilities
+	
+	dos2unix           Line break conversion - Allows us to convert files from Windows line endings to Unix line endings
 
 Optional Packages if you don't want to use my EXE files for unsquashfs.exe or mksquashfs.exe:
-	-gcc-core           GCC compiler collection 
-	-cygwin32-gcc-core  GCC for cygwin 32bit toolchain.  32bit users would need cygwin64-gcc-core
-	-xz                 LZMA de/compressor
-	-liblzma5           LZMA de/compressor library (runtime)
-	-liblzma-devel      LZMA de/compressor library (development)
+
+	gcc-core           GCC compiler collection 
+	
+	cygwin32-gcc-core  GCC for cygwin 32bit toolchain.  32bit users would need cygwin64-gcc-core
+	
+	xz                 LZMA de/compressor
+	
+	liblzma5           LZMA de/compressor library (runtime)
+	
+	liblzma-devel      LZMA de/compressor library (development)
+	
    
 Click Next to complete the CygWin package updates.  Accept any additional package requirements from above.
 
