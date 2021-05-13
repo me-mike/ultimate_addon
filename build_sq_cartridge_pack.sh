@@ -2,7 +2,44 @@
 
 #
 # v001 - Initial fork.  Removing sudo command for chmod, and putting quotes around "$cart_file" to handle spaces - me-mike
+# v002 - Adding checks for required executables, and adding some notes if you don't have them.
 #
+
+#Verify all of the executables we need are in our path.  Otherwise exit.
+if ! [ -x "$(command -v chmod)" ]; then
+  echo 'Error: chmod is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v mksquashfs)" ]; then
+  echo 'Error: mksquashfs is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v dd)" ]; then
+  echo 'Error: dd is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v md5sum)" ]; then
+  echo 'Error: md5sum is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v truncate)" ]; then
+  echo 'Error: truncate is not in path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v mkfs.ext4)" ]; then
+  echo 'Error: mkfs.ext4 is not in path.  Requires e2fsprogs package.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v debugfs)" ]; then
+  echo 'Error: debugfs is not in path.  Typically installed to /usr/sbin, so make sure this is in your path.' >&2
+  exit 1
+fi
+if ! [ -x "$(command -v cat)" ]; then
+  echo 'Error: cat is not in path.' >&2
+  exit 1
+fi
+
+echo "All required commands in path"
 
 #cart_file=./byog_cartridge_shfs.img
 cart_file=$2
